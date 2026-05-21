@@ -1,8 +1,11 @@
-﻿namespace MinesweeperGame.Domain;
+﻿using MinesweeperGame.Domain.Providers;
+
+namespace MinesweeperGame.Domain;
 
 public sealed class Board
 {
     private readonly HashSet<Position> _mines;
+    private readonly IRandomProvider _randomProvider;
 
     public int Width { get; }
     public int Height { get; }
@@ -21,10 +24,12 @@ public sealed class Board
         int width,
         int height,
         int mineCount,
-        Position startPosition)
+        Position startPosition,
+        IRandomProvider randomProvider)
     {
         Width = width;
         Height = height;
+        _randomProvider = randomProvider;
 
         _mines = GenerateMines(mineCount, startPosition);
     }
@@ -47,13 +52,11 @@ public sealed class Board
         Position startPosition)
     {
         var mines = new HashSet<Position>();
-        var random = new Random();
 
         while (mines.Count < mineCount)
         {
-            int row = random.Next(0, Height);
-            int column = random.Next(0, Width);
-
+            int row = _randomProvider.Next(0, Height);
+            int column = _randomProvider.Next(0, Width);
             var minePosition = new Position(row, column);
             // Prevent mine on starting cell
             if (minePosition == startPosition)

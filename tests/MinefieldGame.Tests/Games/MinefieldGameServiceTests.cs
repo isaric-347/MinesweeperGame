@@ -9,7 +9,11 @@ public class MinefieldGameServiceTests
     public void Move_Right_Should_Update_Position()
     {
         // Arrange
-        var board = new Board(5, 5, 2, new(0, 0));
+        var random = new FakeRandomProvider(
+        1, 1,
+        2, 2,
+        3, 3);
+        var board = new Board(5, 5, 2, new(0, 0), random);
         var player = new Player(new Position(0, 0), 3);
 
         var game = new MinefieldGameService(board, player);
@@ -104,7 +108,7 @@ public class MinefieldGameServiceTests
     public void Update_Should_Accept_Case_Insensitive_Input(string input)
     {
         // Arrange
-        var board = new Board(5, 5, new List<Position>());
+        var board = new Board(5, 5, []);
 
         var player = new Player(
             new Position(2, 2),
@@ -123,7 +127,7 @@ public class MinefieldGameServiceTests
     public void Winning_Update_Should_End_Game()
     {
         // Arrange
-        var board = new Board(2, 2, new List<Position>());
+        var board = new Board(2, 2, []);
 
         var player = new Player(
             new Position(0, 0),

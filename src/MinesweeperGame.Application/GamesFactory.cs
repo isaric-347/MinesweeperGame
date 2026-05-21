@@ -1,6 +1,7 @@
 ﻿using MinesweeperGame.Application.Games;
 using MinesweeperGame.Domain;
 using MinesweeperGame.Domain.Params;
+using MinesweeperGame.Domain.Providers;
 using MinesweeperGame.Domain.Services;
 
 namespace MinesweeperGame.Application;
@@ -42,11 +43,14 @@ public static class GamesFactory
         int mineCount,
         Position startPosition)
     {
+        IRandomProvider randomProvider =
+            new RandomProvider();
         var board = new Board(
             boardWidth,
             boardHeight,
             mineCount,
-            startPosition
+            startPosition,
+            randomProvider
            );
 
         var player = new Player(

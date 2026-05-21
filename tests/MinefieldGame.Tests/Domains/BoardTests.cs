@@ -25,7 +25,11 @@ public class BoardTests
     public void HasMine_Should_Return_False_When_No_Mine_Exists()
     {
         // Arrange
-        var board = new Board(5, 5, 0, new(0, 0));
+        var random = new FakeRandomProvider(
+        1, 1,
+        2, 2,
+        3, 3);
+        var board = new Board(5, 5, 0, new(0, 0), random);
 
         // Act
         var result = board.HasMine(new Position(1, 1));
@@ -43,7 +47,11 @@ public class BoardTests
         int column)
     {
         // Arrange
-        var board = new Board(5, 5, 2, new(0, 0));
+        var random = new FakeRandomProvider(
+        1, 1,
+        2, 2,
+        3, 3);
+        var board = new Board(5, 5, 2, new(0, 0), random);
 
         // Act
         var result = board.IsInsideBoard(new Position(row, column));
@@ -62,12 +70,38 @@ public class BoardTests
         int column)
     {
         // Arrange
-        var board = new Board(5, 5, 2, new(0, 0));
+        var random = new FakeRandomProvider(
+        1, 1,
+        2, 2,
+        3, 3);
+        var board = new Board(5, 5, 2, new(0, 0), random);
 
         // Act
         var result = board.IsInsideBoard(new Position(row, column));
 
         // Assert
         Assert.False(result);
+    }
+
+    [Fact]
+    public void Board_Should_Generate_Expected_Mines()
+    {
+        // Arrange
+        var random = new FakeRandomProvider(
+            1, 1,
+            2, 2,
+            3, 3);
+
+        var board = new Board(
+            width: 5,
+            height: 5,
+            mineCount: 3,
+            startPosition: new Position(0, 0),
+            randomProvider: random);
+
+        // Assert
+        Assert.True(board.HasMine(new Position(1, 1)));
+        Assert.True(board.HasMine(new Position(2, 2)));
+        Assert.True(board.HasMine(new Position(3, 3)));
     }
 }
