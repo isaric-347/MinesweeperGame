@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MinesweeperGame\MinesweeperGame.UI.csproj" />
+    <ProjectReference Include="..\..\src\MinesweeperGame\MinesweeperGame.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
