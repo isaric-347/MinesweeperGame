@@ -2,6 +2,12 @@
 
 namespace MinesweeperGame.Domain;
 
+/// <summary>
+/// Represents a rectangular game board with a specified width and height, containing mines at defined or randomly
+/// generated positions.
+/// </summary>
+/// <remarks>Supports checking for mines and validating whether a position is within the board's boundaries. Mines
+/// can be initialized explicitly or generated randomly, excluding a designated starting position.</remarks>
 public sealed class Board
 {
     private readonly HashSet<Position> _mines;
@@ -18,6 +24,7 @@ public sealed class Board
         Width = width;
         Height = height;
         _mines = [.. mines];
+        _randomProvider = new RandomProvider();
     }
 
     public Board(
@@ -34,11 +41,21 @@ public sealed class Board
         _mines = GenerateMines(mineCount, startPosition);
     }
 
+    /// <summary>
+    /// Validate if postiion has mine
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     public bool HasMine(Position position)
     {
         return _mines.Contains(position);
     }
 
+    /// <summary>
+    /// Validate if postiion is in board
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
     public bool IsInsideBoard(Position position)
     {
         return position.Row >= 0 &&
@@ -47,12 +64,17 @@ public sealed class Board
                position.Column < Width;
     }
 
+    /// <summary>
+    /// Generates unique mine positions for the board, excluding the specified starting position.
+    /// </summary>
+    /// <param name="mineCount">The number of mines to generate.</param>
+    /// <param name="startPosition">The position on the board where a mine must not be placed.</param>
+    /// <returns>A set of positions representing mine locations.</returns>
     private HashSet<Position> GenerateMines(
         int mineCount,
         Position startPosition)
     {
         var mines = new HashSet<Position>();
-
         while (mines.Count < mineCount)
         {
             int row = _randomProvider.Next(0, Height);

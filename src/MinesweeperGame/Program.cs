@@ -1,5 +1,5 @@
 ﻿using MinesweeperGame.Application;
-using MinesweeperGame.Domain;
+using MinesweeperGame.Domain.Constants;
 using MinesweeperGame.Domain.Params;
 
 // Create and start Minefield game with predefined params

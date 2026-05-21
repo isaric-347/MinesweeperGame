@@ -1,5 +1,10 @@
 ﻿namespace MinesweeperGame.Domain;
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="startPosition"></param>
+/// <param name="lives"></param>
 public sealed class Player(Position startPosition, int lives)
 {
     public Position Position { get; private set; } = startPosition;

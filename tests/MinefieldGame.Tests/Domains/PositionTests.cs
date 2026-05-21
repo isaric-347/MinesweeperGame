@@ -1,4 +1,5 @@
 ﻿using MinesweeperGame.Domain;
+using MinesweeperGame.Domain.Constants;
 
 namespace MinefieldGame.Tests.Domains;
 

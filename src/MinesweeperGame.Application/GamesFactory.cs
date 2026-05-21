@@ -1,5 +1,6 @@
 ﻿using MinesweeperGame.Application.Games;
 using MinesweeperGame.Domain;
+using MinesweeperGame.Domain.Constants;
 using MinesweeperGame.Domain.Params;
 using MinesweeperGame.Domain.Providers;
 using MinesweeperGame.Domain.Services;
